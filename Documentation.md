@@ -133,7 +133,7 @@ Thanks to the math explained above, the function will always return 6 if called 
 You can verify this contract automatically using:
 
 ```bash
-frama-c -wp -wp-rte verify_assignment.c
+frama-c -wp -wp-rte root.c
 ```
 
 - `-wp` checks that the function obeys the logic of the contract (pre/post conditions).
