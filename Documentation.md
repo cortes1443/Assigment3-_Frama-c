@@ -37,38 +37,90 @@ This expression can be interpreted as:
 ```
 (i * j) + 2 * j + 3 * i == 0
 ```
+We want to prove the validity of the following Hoare triple:
 
-This condition restricts the values of `*i` and `*j` such that, after adding 2 to `*i` and 3 to `*j`, their product will be 6.
-
-We can verify that this works by solving the equation:
-
-Let’s define:
 ```
-x = i, y = j
-
-After the function runs:
-new_x = x + 2
-new_y = y + 3
-
-We want: (x + 2) * (y + 3) == 6
+{ i*j + 2*j + 3*i = 0 } 
+j := j + 3; 
+i := i + 2 
+{ i * j = 6 }
 ```
-
-Expanding the product:
-```
-(x + 2)(y + 3) = xy + 2y + 3x + 6
-```
-
-We want this to be equal to 6, so:
-```
-xy + 2y + 3x + 6 == 6
-=> xy + 2y + 3x == 0  ← this is exactly our precondition
-```
-
-✅ **Conclusion**: If the precondition is met, then the return value is guaranteed to be 6.
 
 ---
 
-### 2. ✅ `ensures \result == 6;`
+## Step 1: Apply the composition rule `{P} S1; S2 {Q}`
+
+We use the backward composition rule:
+
+```
+{P} S1; S2 {Q} ⇔ {P} S1 {R} ∧ {R} S2 {Q}
+```
+
+In this case:
+
+- `S1 = j := j + 3`
+- `S2 = i := i + 2`
+- `Q = i * j = 6`
+
+We define:
+
+- `R = i := i + 2 {i * j = 6}`
+
+---
+
+## Step 2: Backward substitution in the postcondition
+
+Apply the assignment `i := i + 2` backward:
+
+```
+i * j = 6
+[i -> i + 2] ⇒ (i + 2) * j = 6
+```
+
+So:
+
+```
+R = (i + 2) * j = 6
+```
+
+---
+
+## Step 3: Backward substitution in the previous assignment
+
+Now apply the assignment `j := j + 3` backward:
+
+```
+(i + 2) * j = 6
+[j -> j + 3] ⇒ (i + 2) * (j + 3) = 6
+```
+
+---
+
+## Step 4: Expand the expression
+
+Expanding the product:
+
+```
+(i + 2) * (j + 3) = i*j + 2*j + 3*i + 6 = 6
+```
+
+Subtracting 6 from both sides:
+
+```
+i*j + 2*j + 3*i = 0
+```
+
+---
+
+## Conclusion
+
+We have verified that the precondition:
+
+The Hoare triple is verified.
+
+---
+
+### 2.  `ensures \result == 6;`
 
 This is the **postcondition**. It specifies what the function guarantees to return if the precondition was satisfied.
 
