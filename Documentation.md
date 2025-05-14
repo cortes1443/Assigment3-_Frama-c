@@ -121,9 +121,7 @@ i*j + 2*j + 3*i = 0
 
 ## Conclusion
 
-We have verified that the precondition:
-
-The Hoare triple is verified.
+We have verified that the Hoare triple is verified.
 
 ---
 
