@@ -37,6 +37,13 @@ This expression can be interpreted as:
 ```
 (i * j) + 2 * j + 3 * i == 0
 ```
+---
+
+### 2.  `ensures \result == 6;`
+
+This is the **postcondition**. It specifies what the function guarantees to return if the precondition was satisfied.
+
+---
 We want to prove the validity of the following Hoare triple:
 
 ```
@@ -117,14 +124,6 @@ i*j + 2*j + 3*i = 0
 We have verified that the precondition:
 
 The Hoare triple is verified.
-
----
-
-### 2.  `ensures \result == 6;`
-
-This is the **postcondition**. It specifies what the function guarantees to return if the precondition was satisfied.
-
-Thanks to the math explained above, the function will always return 6 if called under the precondition constraint.
 
 ---
 
